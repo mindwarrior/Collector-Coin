@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Admin Navigation</title>
+  <link href="https://fonts.googleapis.com/css?family=Work+Sans:300" rel="stylesheet">
+  <link href="css/nav.css" rel="stylesheet" type="text/css">
+    
+    
+<script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.36/dist/web3.min.js" integrity="sha256-nWBTbvxhJgjslRyuAKJHK+XcZPlCnmIAAMixz6EefVk=" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="abi.js"></script>
+<script>
+        $(document).ready(function(){
+    if(typeof window.web3 !== "undefined" && typeof window.web3.currentProvider !== "undefined")
+    {
+        web3 = new Web3(window.web3.currentProvider);
+      } 
+    else {
+        web3 = new Web3("http://localhost:7545");
+    }
+  
+var status = parseInt(2,10) // cars under restoration    
+contract = new web3.eth.Contract(abi,address);
+contract.methods.generateCarList(status).call({from: account, gas:3000000}).then(function(result){
+
+for(var x=0; x <result.length; x++)
+{   
+    console.log(toAscii(result[x]).length);
+    var temp_vin= toAscii(result[x]);
+    if(temp_vin ==0)
+        {
+            continue;
+        }
+    contract.methods.getPendingCar(temp_vin).call({from: account, gas:3000000}).then(function(returnvalue)
+    {   
+        console.log(returnvalue[x]);
+        var table = document.getElementById("myTable");
+        //console.log(web3.utils.toAscii(returnvalue[x]));
+        var row = table.insertRow(0);
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        var cell3 = row.insertCell(2);
+        var cell4 = row.insertCell(3);
+        var cell5 = row.insertCell(4);
+        var cell6 = row.insertCell(5);
+        var cell7 = row.insertCell(6);
+        cell1.innerHTML = returnvalue[0];
+        cell2.innerHTML = returnvalue[1];
+        cell3.innerHTML = returnvalue[2];
+        cell4.innerHTML = returnvalue[3];
+        cell5.innerHTML = returnvalue[4];
+        cell6.innerHTML = returnvalue[5];
+        cell7.innerHTML = returnvalue[6];
+    })                                                                                                                                                        
+}//for loop end
+        var table = document.getElementById("myTable");
+        //console.log(web3.utils.toAscii(returnvalue[x]));
+        var row = table.insertRow(0);
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        var cell3 = row.insertCell(2);
+        var cell4 = row.insertCell(3);
+        var cell5 = row.insertCell(4);
+        var cell6 = row.insertCell(5);
+        var cell7 = row.insertCell(6);
+        cell1.innerHTML = "Year";
+        cell2.innerHTML="Make";
+        cell3.innerHTML="Model";
+        cell4.innerHTML="Value";
+        cell5.innerHTML="ZipCode";
+        cell6.innerHTML="Owner";
+        cell7.innerHTML = "VIN";
+     
+})
+            
+            
+
+            
+}
+            )
+
+function toAscii(hex) {
+    var str = '',
+        i = 0,
+        l = hex.length;
+    if (hex.substring(0, 2) === '0x') {
+        i = 2;
+    }
+    for (; i < l; i+=2) {
+        var code = parseInt(hex.substr(i, 2), 16);
+        if (code === 0) continue; // this is added
+        str += String.fromCharCode(code);
+    }
+    return str;
+};
+
+    
+    //document.write(vin);
+   // window.confirm("You are approving Car with vin " + vin + " for restoration. Are you sure?");
+function approveInvest(){
+    
+    var vin= document.forms["carInvest"]["vin"].value;
+    var investorname= document.forms["carInvest"]["investorname"].value;
+    var userconfirmation= window.confirm("You are approving Car with vin " + vin + " for restoration. Are you sure?");
+    console.log("web3 intialized");
+    contract.methods.investinCar(vin, investorname).send({from: account, gas:3000000},(err,transactionhash)=>{
+        console.log(transactionhash)
+        document.getElementById("carInvest").submit()
+    });
+}
+    
+</script>
+
+
+  <!--[if lt IE 9]><script src="js/html5shiv.js"></script><![endif]-->
+</head>
+<body>
+<header>
+	<div class="container">
+	
+	<img src="images/logo.JPEG" alt="logo" class="logo">
+	<nav>
+	   <ul>
+        <li><a href="newCarRegistration.html">Home</a></li>
+	   <li><a href="newCarRegistration.html">List your car</a></li>
+	   <li><a href="investmentportfolio.html">Your Portfolio</a></li>
+	   <li><a href="investInCar.html">Available Investments</a></li>
+	   </ul>
+	</nav>
+	
+	</div>
+</header>
+	<div class="container">
+	
+	
+	</div>
+	
+	<table id="myTable">
+ 
+  	  </table><br><br>
+    <div class="center-fix">
+    <form name="carInvest" id="carInvest" >
+           <input type="text" name="vin" value="VIN"> <br>
+           <input type="text" name="investorname" value="Investor Name"> <br>
+           <br><br>
+        </form>
+          <button id="button" onclick="approveInvest()">Submit Investment</button>
+    </div>
+
+
+	
+</body>
+</html>

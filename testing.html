@@ -1,0 +1,155 @@
+<html>
+
+<head>
+<script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.36/dist/web3.min.js" integrity="sha256-nWBTbvxhJgjslRyuAKJHK+XcZPlCnmIAAMixz6EefVk=" crossorigin="anonymous"></script>
+
+
+<script type="text/javascript">  
+
+function call_blockchain()
+{ 
+if(typeof window.web3 !== "undefined" && typeof window.web3.currentProvider !== "undefined") {
+        var web3 = new Web3(window.web3.currentProvider);
+      } else {
+        var web3 = new Web3("http://localhost:8545");
+        console.log(web3.eth.accounts[0])
+          	var abi = [
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_status",
+				"type": "uint256"
+			}
+		],
+		"name": "generateCarList",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bytes32[]"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_vin",
+				"type": "string"
+			},
+			{
+				"name": "_year",
+				"type": "uint256"
+			},
+			{
+				"name": "_make",
+				"type": "string"
+			},
+			{
+				"name": "_model",
+				"type": "string"
+			},
+			{
+				"name": "_value",
+				"type": "uint256"
+			}
+		],
+		"name": "newCar",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_vin",
+				"type": "string"
+			}
+		],
+		"name": "getPendingCar",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_source",
+				"type": "string"
+			}
+		],
+		"name": "stringToBytes32",
+		"outputs": [
+			{
+				"name": "result",
+				"type": "bytes32"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_vin",
+				"type": "string"
+			},
+			{
+				"name": "_restorationCost",
+				"type": "uint256"
+			},
+			{
+				"name": "_estFutureValue",
+				"type": "uint256"
+			}
+		],
+		"name": "approveCar",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	}
+]
+      }
+var address = '0x21d641fa1a1c32872b03c3b20478226be372d5fc'
+var account = '0x7bcb43355eba1f9920c340b99e3a3bdc776eb3a4'
+var contract = new web3.eth.Contract(abi,address);
+document.write(contract.methods)
+//contract.methods.newCar('hijk',1997,'honda','brio',1000).send({from: account, gas:3000000},(err,transactionHash) => {document.write(transactionHash)})
+contract.methods.getPendingCar('hijk').call({from: account, gas:3000000},(err,result) => {document.write(result)})
+//console.log(contract.methods)
+var year = result[0];
+document.write(year);
+}
+</script>
+
+</head>
+
+<body>
+<button type="button" onclick="call_blockchain()">Click Me!</button>
+</body>
+
+</html>

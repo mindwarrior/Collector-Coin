@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   <title>Document</title>
+
+   <link rel="stylesheet" type="text/css" href="main.css">
+
+   <script src="C:\Users\arb77\AppData\Roaming\npm\node_modules\web3" ></script>
+   <script type = "text/Javascript">
+   function callBlockchain()
+   {
+	
+	var nameValuea = document.getElementById("a").value;
+	var nameValueb = document.getElementById("b").value;
+	var nameValuec = document.getElementById("c").value;
+	var nameValued = document.getElementById("d").value;
+	var nameValuee = document.getElementById("e").value;
+	
+	
+	var Web3 = require('web3');
+	document.write("hello");
+	var web3 = new Web3('http://localhost:8545');
+	document.write("hello");
+	var abi = [
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_status",
+				"type": "uint256"
+			}
+		],
+		"name": "generateCarList",
+		"outputs": [
+			{
+				"name": "",
+				"type": "bytes32[]"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_vin",
+				"type": "string"
+			},
+			{
+				"name": "_year",
+				"type": "uint256"
+			},
+			{
+				"name": "_make",
+				"type": "string"
+			},
+			{
+				"name": "_model",
+				"type": "string"
+			},
+			{
+				"name": "_value",
+				"type": "uint256"
+			}
+		],
+		"name": "newCar",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_vin",
+				"type": "string"
+			}
+		],
+		"name": "getPendingCar",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"name": "",
+				"type": "string"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_source",
+				"type": "string"
+			}
+		],
+		"name": "stringToBytes32",
+		"outputs": [
+			{
+				"name": "result",
+				"type": "bytes32"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_vin",
+				"type": "string"
+			},
+			{
+				"name": "_restorationCost",
+				"type": "uint256"
+			},
+			{
+				"name": "_estFutureValue",
+				"type": "uint256"
+			}
+		],
+		"name": "approveCar",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	}
+];
+//var account = new web3.eth.accounts.create()
+//console.log(web3.eth.getBalance(account))
+
+var address = '0x21d641fa1a1c32872b03c3b20478226be372d5fc'
+var account = '0x199a8ef8080a29ac01a86c3cde71b6ee197ace44'
+var contract = new web3.eth.Contract(abi,address);
+//console.log(contract.methods)
+contract.methods.newCar(nameValuea,nameValueb,nameValuec,nameValued,nameValuee).send({from: account, gas:3000000},(err,transactionHash) => {document.write(transactionHash)});
+//contract.methods.newCar('hijk',1997,'honda','brio',1000).send({from: account, gas:3000000},(err,transactionHash) => {console.log(transactionHash)})
+document.write("hello");
+}   
+
+function print()
+{
+	document.write("hello") 
+}  
+</script>
+
+</head>
+<body>
+   <div class="container">
+
+       <h1>New Car Registration</h1>
+
+       
+       <form>
+       <label for="a" class="col-lg-2 control-label">VIN</label>
+       <input id="a" type="text" required>
+
+       <label for="b" class="col-lg-2 control-label">Year</label>
+       <input id="b" type="text" required>
+<label for="c" class="col-lg-2 control-label">Make</label>
+       <input id="c" type="text" required>
+<label for="d" class="col-lg-2 control-label">Model</label>
+       <input id="d" type="text" required>
+<label for="e" class="col-lg-2 control-label">Value</label>
+       <input id="e" type="text" required>
+<button id="button" onClick="callBlockchain()">Submit Car</button>
+</form>
+</div>
+
+   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+   
+
+</body>
+</html>

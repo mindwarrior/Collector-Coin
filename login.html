@@ -1,0 +1,54 @@
+<html>
+<head>
+  <title>Login Page</title>
+  <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
+  <link rel="stylesheet" href="login.css" />
+  <style type="text/css" media="screen, print">
+    @font-face {
+      font-family: "Canterbury";
+      src: url("Canterbury.ttf");
+    }
+    
+  #login_div h3 { font-family: "Canterbury";
+	color:white;
+	font-size:45px;
+	text-align:center;
+  font-weight: 70;
+	}
+  </style>
+</head>
+<body>
+
+  <div id="login_div" class="main-div">
+    <h3>CollectorCoin</h3>
+    <input type="email" placeholder="Email..." id="email_field" />
+    <input type="password" placeholder="Password..." id="password_field" />
+
+    <button onclick="login()">Login to Account</button>
+  </div>
+
+  <div id="user_div" class="loggedin-div">
+    <h3>Welcome User</h3>
+    <p id="user_para">Welcome to Firebase web login Example. You're currently logged in.</p>
+    <button onclick="logout()">Logout</button>
+  </div>
+
+
+
+  <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBa6uIabguk6R1qFuf6G6fj_vpRLy1PJwU",
+    authDomain: "ccoin-c42cc.firebaseapp.com",
+    databaseURL: "https://ccoin-c42cc.firebaseio.com",
+    projectId: "ccoin-c42cc",
+    storageBucket: "ccoin-c42cc.appspot.com",
+    messagingSenderId: "781921920638"
+  };
+  firebase.initializeApp(config);
+</script>
+  <script src="login.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,109 @@
+pragma solidity ^0.4.18;
+contract carManager {
+  struct CarStruct {
+  	string vin;
+  	uint year;
+  	string make;
+  	string model;
+  	uint value;
+  	uint status;// 0= pending approval , 1= approved for investment, 2= pending restorer 3= under restoration,
+  	//4= restored, 5= for sale 6=sold
+  	uint restorationCost;
+  	uint estFutureValue;
+  	
+  }
+
+mapping (address => uint) balances;
+mapping (address => CarStruct)  carStructs;
+mapping (string => address) vinStructs;
+address [] addresses;
+uint carcount = 0;
+
+ 
+  // check if a car exists
+ 
+ 
+  //Applicant excecutes this to add a new vehicle to cars pending Admin approval
+  function newCar(string _vin, uint _year, string _make, string _model, uint _value) public returns (string){
+  	
+  	address applicantadd = msg.sender;
+  	var c = carStructs[applicantadd];
+  	
+  	vinStructs[_vin] = applicantadd;
+  	
+  	c.vin = _vin;
+  	c.year = _year;
+  	c.make = _make;
+  	c.model = _model;
+  	c.value = _value;
+  	c.status = 0;
+  	
+  	addresses.push(applicantadd);
+  	carcount = carcount + 1;
+  	
+  	return c.vin;
+  	
+
+  }
+ 
+ 
+  //Function to find the same car struct
+  
+  // Admin excecutes this to approve a car for investment opportunities.
+ function approveCar(string _vin, uint _restorationCost, uint _estFutureValue) public returns (uint) {
+  	
+  	address d = vinStructs[_vin];
+  	carStructs[d].restorationCost = _restorationCost;
+  	carStructs[d].estFutureValue = _estFutureValue;
+  	carStructs[d].status = 1;
+  	// call the transfercoin method to transfer the coins from the DLM group to owner
+  	
+  	return carStructs[d].year;
+  	
+  }
+  
+  
+  function getpendingCar(uint status) public returns (bytes32[],uint[],bytes32[],bytes32[],uint[],uint[],uint[])
+{ 	
+    //(string[],uint[],string[],string[],uint[],uint[],uint[])
+    bytes32[] memory vins = new bytes32[](carcount);
+	uint[] memory caryears = new uint[](carcount);
+	bytes32[] memory makes  = new bytes32[](carcount);
+	bytes32[] memory models = new bytes32[](carcount);
+    uint[] memory values = new uint[](carcount);
+    uint[] memory restorationCosts= new uint[](carcount);
+    uint[] memory estFutureValues= new uint[](carcount);
+
+	for (uint i = 0; i < carcount; i++) 
+	{   
+	    address a = addresses[i];
+        CarStruct storage c = carStructs[a];
+        if(c.status == status)
+        {
+        	vins[i] = stringToBytes32(c.vin);
+        	caryears[i] = c.year;
+            makes[i] =  stringToBytes32(c.make);
+            models[i] = stringToBytes32(c.model);
+            values[i] = c.value;
+            restorationCosts[i] = c.restorationCost;
+            estFutureValues[i]= c.estFutureValue;
+        }	
+           
+    }
+    return(vins,caryears,makes,models,values,restorationCosts,estFutureValues);
+//return(vins,caryears,makes,models,values,restorationCosts,estFutureValues);
+    	}
+function stringToBytes32(string memory source) returns (bytes32 result) {
+    bytes memory tempEmptyStringTest = bytes(source);
+    if (tempEmptyStringTest.length == 0) {
+        return 0x0;
+    }
+
+    assembly {
+        result := mload(add(source, 32))
+    }
+}
+
+  
+}
+ 

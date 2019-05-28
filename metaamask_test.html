@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <link rel="stylesheet" type="text/css" href="new.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.36/dist/web3.min.js" integrity="sha256-nWBTbvxhJgjslRyuAKJHK+XcZPlCnmIAAMixz6EefVk=" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+<script src="abi_test.js"></script> 
+<script>
+    $(document).ready(function(){
+    if(typeof window.web3 !== "undefined" && typeof window.web3.currentProvider !== "undefined")
+    {
+        web3 = new Web3(window.web3.currentProvider);
+      } 
+    else {
+        web3 = new Web3("http://localhost:7545");
+    }
+    contract = new web3.eth.Contract(abi,address);
+    //console.log(web3.METHODS.getPendingCar);
+    //contract.methods.newCar('hijk',1997,'honda','accent',2000,07307,'kartik').send({from: account, gas:3000000},(err,result) => { console.log(result)});
+    //contract.methods.newCar.    
+    }
+    )
+    
+    function createCar(e){
+        //e.preventDefault();
+        /*var vin = document.getElementById("a").value;
+        console.log(typeof vin);
+        console.log("vin =", vin)
+		var year = parseInt(document.getElementById("b").value,10);
+        console.log(typeof year);
+        console.log("year =", year)
+		var make = document.getElementById("c").value;
+        console.log(typeof make);
+        console.log("make =", make)
+		var model  = document.getElementById("d").value;
+        console.log(typeof model);
+        console.log("model =", model)
+		var value_car = parseInt(document.getElementById("e").value,10);
+        console.log(typeof value_car);
+        console.log("value_car=", value_car)
+        var zipcode = parseInt(document.getElementById("f").value,10);
+        console.log(typeof zipcode);
+        console.log("zipcode =", zipcode)
+        var owner = document.getElementById("g").value;
+        console.log(typeof owner);
+        console.log("owner=", owner)
+        debugger;
+        //console.log(web3.eth.contract);
+        var userconfirmation = window.confirm("Do you want to submit this car for restoration?");
+        //userconfirmation)
+        */
+            
+        //contract.methods.newCar('pqrs',1997,'honda','accent',2000,07307,'aditya').send({from: account, gas:3000000},(err,transactionhash) => { console.log(transactionhash)});
+        contract.methods.send('0xC6acdc3eaA039Fb0197EA0d8aa70d0794de63c31').send({from:account, gas:3000000},(err,transactionhash)=>{console.log(transactionhash)});
+        
+        
+        //contract.methods.newCar(document.getElementById("a").value,(document.getElementById("b").value,10),document.getElementById("c").value,document.getElementById("d").value,parseInt(document.getElementById("e").value,10),(document.getElementById("f").value,10),document.getElementById("g").value).send({from:account,gas:3000000},(err,transactionhash) => { console.log(transactionhash)});
+        
+    }
+    
+</script>
+
+</head>
+<body>
+    <div class="container">
+
+        <h1>New Car Registration</h1>
+
+        
+        <form>
+        <label for="a" class="col-lg-2 control-label">VIN</label>
+        <input id="a" type="text" required>
+        <label for="b" class="col-lg-2 control-label">Year</label>
+        <input id="b" type="text" required>
+		<label for="c" class="col-lg-2 control-label">Make</label>
+        <input id="c" type="text" required>
+		<label for="d" class="col-lg-2 control-label">Model</label>
+        <input id="d" type="text" required>
+		<label for="e" class="col-lg-2 control-label">Value</label>
+        <input id="e" type="text" required>
+        <label for="f" class="col-lg-2 control-label">Zip Code</label>
+        <input id="f" type="text" required>
+        <label for="g" class="col-lg-2 control-label">Your Name</label>
+        <input id="g" type="text" required>
+		</form>
+        <button id="button" onclick="createCar()">Submit Car</button>
+
+
+    </div>
+
+   
+    
+	
+</body>
+</html>

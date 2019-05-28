@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css?family=Work+Sans:400,600');
+
+body {
+	margin: 0;
+	background-image: url('images/hero.JPEG');
+	
+	font-family: 'Work Sans', sans-serif;
+	font-weight: 800;
+	
+}
+
+.container {
+	width: 80%;
+	margin: 0 auto;
+}
+
+header {
+	background: #FF851B;
+}
+
+header::after{
+	content: '';
+	display: table;
+	clear: both;
+}
+.logo {
+	float: left;
+	padding: 10px 0;
+	height: 50px;
+    width: 15%
+}
+
+nav {
+	float: right;
+}
+
+nav ul {
+	margin: 0;
+	padding: 0;
+	list-style:none;
+}
+
+nav li{
+	display: inline-block;
+	margin-left: 70px;
+	padding-top: 23px;
+}
+
+nav a{
+	color: #444;
+	text-decoration: none;
+	text-transform: uppercase;
+	font-size: 14px;
+}
+
+nav a:hover {
+  color: #000;
+}
+
+nav a::before {
+  content: '';
+  display: block;
+  height: 5px;
+  background-color: #444;
+
+  position: absolute;
+  top: 0;
+  width: 0%;
+
+  transition: all ease-in-out 250ms;
+}
+
+nav a:hover::before {
+  width: 100%;
+}
+
+
+
+.bubble{
+   
+  
+  text-align: center; 
+  color: white;
+
+}
+
+
+.container1 {
+    width: 30%;
+	
+    
+    margin: 0 auto;
+    padding: 2em;
+	color:white;
+    font-family: 'Raleway','Source Sans Pro', 'Arial';
+}
+label {
+    display:block;
+    margin-bottom:10px;
+}
+input:invalid {
+    padding:10px;
+    width: 50%;
+    margin-bottom: 1em;
+	border: 1px solid red;
+}
+input:valid {
+    padding:10px;
+    width: 50%;
+    margin-bottom: 1em;
+	border: 2px solid black;
+}
+button {
+    
+    		padding:20px;
+    		color:black;
+
+    		text-align: center;
+    		
+    		padding: 10px;
+}
+
+table{
+    		width:800px;
+    		margin: 10% auto 5% auto;
+    		text-align: center;
+    		table-layout: fixed;
+    	}
+ table, tr, th, td{
+    		padding: 20px;
+    		color: white;
+    		border: 1px solid;
+    		border-collapse: collapse;
+    		font-size: 18px;
+    		font-family: Arial;
+    		background: linear-gradient(top, #3c3c3c 0%, #222222 100%);
+    		background:-webkit-linear-gradient(top, #3c3c3c 0%, #222222 100%);
+
+    	}
+ .center-fix{
+    		
+    		padding:20px;
+    		color:black;
+
+    		text-align: center;
+    		
+    		padding: 10px;
+
+    	}
+
+		
+
+
+
